@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image"
+import Form from 'next/form'
 import logoSvg from "../../public/logo.svg"
 import sun from "../../public/SVGs/sun.svg"
 import moon from "../../public/SVGs/moon.svg"
 import { useState } from "react";
-
 
 export default function NewsletterPage() {
     const [formSubmitted, setFormSubmitted] = useState(false)
@@ -27,7 +27,7 @@ export default function NewsletterPage() {
         </div>
         </nav>
         <main className="flex flex-1 justify-center items-center">
-            { formSubmitted ? <SuccessMessage/> : <NewsletterForm/> }
+            { formSubmitted ? <SuccessMessage/> : <NewsletterForm setFormSubmitted={setFormSubmitted}/> }
         </main>
     </div>
     );
@@ -38,14 +38,15 @@ export function SuccessMessage() {
         <h1>Success</h1>
     );
 }
-export function NewsletterForm() {
+
+export function NewsletterForm({setFormSubmitted}) {
     return (
         <div className="inline-block items-center">
             <h2>Subscribe to the newsletter</h2>
-            <form action="" className="flex flex-col items-center gap-[10px] grow mt-[10px]">
+            <Form action="" className="flex flex-col items-center gap-[10px] grow mt-[10px]">
                 <input type="text" placeholder="Enter your email here..." className="w-full outline flex text-center rounded-md"/>
-                <button type="button" className="hover:text-green-500 duration-100 hover:cursor-pointer" >Subscribe</button>
-            </form>
+                <button type="button" className="hover:text-green-500 duration-100 hover:cursor-pointer" onClick={e => {setFormSubmitted(true)}}>Subscribe</button>
+            </Form>
         </div>
     );
 }
