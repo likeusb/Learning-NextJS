@@ -58,10 +58,10 @@ export function NewsletterForm({setFormSubmitted, setFormData}: {setFormSubmitte
 
     return (
         <div className="inline-block items-center">
-            <h2>Subscribe to the newsletter</h2>
-            <Form action="" className="flex flex-col items-center gap-[10px] grow mt-[10px]">
-                <input type="text" id="email" placeholder="Enter your email here..." className="w-full outline flex text-center rounded-md"/>
-                <button type="button" className="hover:text-green-500 duration-100 hover:cursor-pointer" onClick={e => { readInputValue(); setFormSubmitted(true) }}>Subscribe</button>
+            <h1>Subscribe to the newsletter</h1>
+            <Form action="" className="flex flex-col items-center gap-[20px] grow mt-[10px]">
+                <input type="text" id="email" placeholder="Enter your email here..." className="w-full outline flex text-center rounded-md text-2xl font-normal"/>
+                <button type="button" className="hover:text-green-500 duration-100 hover:cursor-pointer" onClick={e => { readInputValue(); setFormSubmitted(true) }}><h2>Subscribe</h2></button>
             </Form>
         </div>
     );
