@@ -9,6 +9,10 @@ import { useState } from "react";
 
 export default function NewsletterPage() {
     const [formSubmitted, setFormSubmitted] = useState(false)
+    const [formData,setFormData] = useState({email:""})
+    function readInputValue() {
+        console.log(formData.email);
+    }
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -26,26 +30,38 @@ export default function NewsletterPage() {
             <Image src={moon} alt="" className="h-[70px] w-auto dark:hidden"/>
         </div>
         </nav>
-        <main className="flex flex-1 justify-center items-center">
-            { formSubmitted ? <SuccessMessage/> : <NewsletterForm setFormSubmitted={setFormSubmitted}/> }
+        <main className="flex flex-col flex-1 justify-center items-center">
+            { formSubmitted ? <SuccessMessage setFormSubmitted={setFormSubmitted} setFormData={setFormData}/> : <NewsletterForm setFormSubmitted={setFormSubmitted} setFormData={setFormData}/> }
         </main>
     </div>
     );
 }
 
-export function SuccessMessage() {
+export function SuccessMessage({setFormSubmitted, setFormData}: {setFormSubmitted: (formSubmitted: boolean) => void, setFormData: (formData: {email: string}) => void}) {
+    function setInputValue() {
+        setFormData({email: ""});
+    }
+
     return (
-        <h1>Success</h1>
+        <div className="flex flex-col items-center">
+            <h1>Success!</h1>
+            <h2>Subscribed by mistake?</h2>
+            <button type="button" className="hover:text-green-500 duration-100 hover:cursor-pointer" onClick={e => { setInputValue(); setFormSubmitted(false) }}><h2>Unsubscribe</h2></button>
+        </div>
     );
 }
 
-export function NewsletterForm({setFormSubmitted}) {
+export function NewsletterForm({setFormSubmitted, setFormData}: {setFormSubmitted: (formSubmitted: boolean) => void, setFormData: (formData: {email: string}) => void}) {
+    function readInputValue() {
+        setFormData({email: (document.getElementById("email") as HTMLInputElement).value});
+    }
+
     return (
         <div className="inline-block items-center">
             <h2>Subscribe to the newsletter</h2>
             <Form action="" className="flex flex-col items-center gap-[10px] grow mt-[10px]">
-                <input type="text" placeholder="Enter your email here..." className="w-full outline flex text-center rounded-md"/>
-                <button type="button" className="hover:text-green-500 duration-100 hover:cursor-pointer" onClick={e => {setFormSubmitted(true)}}>Subscribe</button>
+                <input type="text" id="email" placeholder="Enter your email here..." className="w-full outline flex text-center rounded-md"/>
+                <button type="button" className="hover:text-green-500 duration-100 hover:cursor-pointer" onClick={e => { readInputValue(); setFormSubmitted(true) }}>Subscribe</button>
             </Form>
         </div>
     );
