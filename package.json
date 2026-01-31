@@ -10,7 +10,9 @@
     "format": "biome format --write"
   },
   "dependencies": {
-    "next": "16.1.4",
+    "@types/markdown-it": "^14.1.2",
+    "markdown-it": "^14.1.0",
+    "next": "^16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
