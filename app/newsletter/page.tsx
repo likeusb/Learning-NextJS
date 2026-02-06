@@ -1,8 +1,6 @@
 "use client";
 
 import Form from 'next/form'
-import { Header } from "../layout"
-import { Footer } from "../layout"
 import { useState } from "react";
 
 export default function NewsletterPage() {
@@ -11,11 +9,9 @@ export default function NewsletterPage() {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <Header/>
             <main className="flex flex-col flex-1 justify-center items-center">
                 { formSubmitted ? <SuccessMessage setFormSubmitted={setFormSubmitted} setFormData={setFormData}/> : <NewsletterForm setFormSubmitted={setFormSubmitted} setFormData={setFormData}/> }
             </main>
-            <Footer/>
         </div>
     );
 }

@@ -5,7 +5,29 @@ import logoSvg from "../public/logo.svg"
 import sun from "../public/SVGs/sun.svg"
 import moon from "../public/SVGs/moon.svg"
 
-export function Header() {
+export const metadata: Metadata = {
+  title: 'Linas Photography',
+  description: 'Great photos. Well-coded websites.',
+  twitter: {
+    title: 'Linas Photography',
+    description: 'Great photos. Well-coded websites.',
+    creator: '@likeusb',
+    images: ['../public/img/SLR.jpg'],
+  },
+  openGraph: {
+    title: 'Linas Photography',
+    description: 'Great photos. Well-coded websites.',
+    images: [
+      {
+        url: '../public/img/SLR.jpg',
+        width: 1920,
+        height: 1080,
+      },
+    ],
+  },
+}
+
+function Header() {
   return (
     <nav className="flex items-center h-[70px] w-full bg-neutral-800">
       <Image src={logoSvg} alt="" className="flex justify-center items-center h-[70px] object-contain basis-0 grow"/>
@@ -24,7 +46,7 @@ export function Header() {
   );
 }
 
-export function Footer() {
+function Footer() {
   return (
     <footer className="flex justify-center items-center h-[70px]">
       <h4>Also check out my Github <a href="https://github.com/likeusb">here</a></h4>
@@ -40,7 +62,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Header/>
         {children}
+        <Footer/>
       </body>
     </html>
   );

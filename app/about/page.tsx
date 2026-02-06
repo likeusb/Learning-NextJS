@@ -1,6 +1,4 @@
 import Image from "next/image"
-import { Header } from "../layout"
-import { Footer } from "../layout"
 import markdownit from 'markdown-it'
 import meImg from "../../public/img/portrait.jpg"
 
@@ -55,7 +53,6 @@ Google Fonts for providing the font and certain SVG Icons
 export default function Home() {
     return (
         <div className="flex flex-col min-h-screen">
-            <Header/>
             <main className="flex-1 flex flex-col gap-[30px] pl-[20%] pr-[20%] pt-[100px] pb-[100px] gap-[30px]">
                 <div className="flex gap-[30px]">
                     <Image src={meImg} alt="A photo of me pointing a DSLR at the camera" className="h-[650px] rounded-[20px]"/>
@@ -67,7 +64,6 @@ export default function Home() {
                 <div dangerouslySetInnerHTML={{ __html: myGear4 }}/>
                 <div dangerouslySetInnerHTML={{ __html: Credits }} className="mt-[50px]"/>
             </main>
-            <Footer/>
         </div>
     );
 }
