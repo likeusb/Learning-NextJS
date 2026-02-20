@@ -6,6 +6,7 @@ import sun from "../public/SVGs/sun.svg"
 import moon from "../public/SVGs/moon.svg"
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://likeusb.me"),
   title: 'Linas Photography',
   description: 'Great photos. Well-coded websites.',
   twitter: {

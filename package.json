@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@types/markdown-it": "^14.1.2",
+    "axios": "^1.13.5",
+    "cors": "^2.8.6",
     "markdown-it": "^14.1.0",
     "next": "^16.1.6",
     "react": "19.2.3",
