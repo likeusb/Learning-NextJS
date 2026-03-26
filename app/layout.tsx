@@ -4,36 +4,7 @@ import Image from "next/image"
 import logoSvg from "../public/logo.svg"
 import sun from "../public/SVGs/sun.svg"
 import moon from "../public/SVGs/moon.svg"
-import axios from "axios";
-
-let VATSIMData : string;
-// let VATSIMStatus : boolean;
-// let VATSIMPilotOrATC : boolean; // true if pilot, false if ATC
-// let VATSIMData = '1880962,FDX298,pilot,,,54.02542,12.02494,0,0,0,0,0,0,0,0,\n';
-// Array format: 0 - CID, 1 - Callsign, 2 - Facility type (pilot or ATC), 3 - Frequency (empty for pilots), 4 - Visual range (empty for pilots), 5 - Latitude, 6 - Longitude, 7-14 - Secondary positions (four or more lat/lon pairs, if set by the controller), Trailing comma
-// raw stringified JSON: 1880962,FDX298,pilot,,,54.02542,12.02494,0,0,0,0,0,0,0,0,\n
-// array if offline: [""]
-// array if online: ["1880962", "FDX298", "pilot", "", "", "54.02542", "12.02494", "0", "0", "0", "0", "0", "0", "0", "0"]
-
-let config = {
-  method: 'get',
-maxBodyLength: Infinity,
-  url: 'https://slurper.vatsim.net/users/info?cid=1880962',
-  headers: {
-    'Accept': 'text/plain'
-  }
-};
-
-axios(config)
-.then((response) => {
-  console.log(JSON.stringify(response.data));
-  VATSIMData = JSON.stringify(response.data);
-})
-.catch((error) => {
-  console.log(error);
-});
-
-
+import jsonData from './vatsim-data.json' assert {type: 'json'};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://likeusb.me"),
@@ -58,6 +29,7 @@ export const metadata: Metadata = {
   },
 }
 
+let VATSIMData : string = '';
 
 function Header() {
   return (
@@ -78,12 +50,45 @@ function Header() {
   );
 }
 
+// https://data.vatsim.net/v3/vatsim-data.json
+
+function processVATSIMData() {
+  console.log(jsonData['pilots'].length)
+
+  for (let i = 0; i < jsonData['pilots'].length; i++) {
+    const pilot = jsonData['pilots'][i];
+    if (pilot['cid'] == 1694776) {
+      console.log('jkgf');
+    }
+  };
+};
+
+async function getVATSIMData() {
+  let returnData = '';
+
+  const url = "https://data.vatsim.net/v3/vatsim-data.json";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    console.log(result['pilots'].length);
+  } catch (error) {
+    console.error("Error fetching VATSIM data:", error);
+  }
+}
+
+processVATSIMData();
+getVATSIMData();
+
 function Footer() {
   return (
     <footer className="grid grid-cols-3 h-[70px]">
       <h4 className="col-2 flex justify-center items-center gap-3">Also check out my Github <a href="https://github.com/likeusb">here</a></h4>
       <div className="flex justify-center items-center col-3">
-        <p>VATSIM Status: {VATSIMData}</p>
       </div>
     </footer>
   );
